@@ -2,49 +2,105 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Login – Hospital Management</title>
+  <title>Hospital Management – Login / Register</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="styles.css" />
   <style>
     body{display:flex;min-height:100vh;align-items:center;justify-content:center;background:#f5f7fa;font-family:Arial,Helvetica,sans-serif}
-    .login-card{background:#fff;padding:2.5rem 3rem;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.08);width:100%;max-width:380px}
-    .login-card h2{margin-bottom:1.5rem;color:#2c3e50;text-align:center}
+    .auth-card{background:#fff;padding:2.5rem 3rem;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.08);width:100%;max-width:420px}
+    .auth-card h2{margin-bottom:1.5rem;color:#2c3e50;text-align:center}
+    .tabs{display:flex;margin-bottom:1.5rem;border-bottom:1px solid #ddd}
+    .tab{flex:1;padding:.75rem;border:none;background:transparent;cursor:pointer;font-size:1rem;color:#555;transition:.25s}
+    .tab.active{color:#3498db;border-bottom:2px solid #3498db}
     .form-group{margin-bottom:1rem}
     label{display:block;margin-bottom:.25rem;font-weight:bold;color:#555}
-    input{width:100%;padding:.75rem;border:1px solid #ddd;border-radius:4px;font-size:1rem}
+    input,select{width:100%;padding:.75rem;border:1px solid #ddd;border-radius:4px;font-size:1rem}
     .btn{width:100%;padding:.75rem;border:none;border-radius:4px;font-size:1.1rem;color:#fff;background:#3498db;cursor:pointer;transition:.25s}
     .btn:hover{background:#2980b9}
     .link{text-align:center;margin-top:1rem;font-size:.9rem}
     .link a{color:#3498db;text-decoration:none}
     .link a:hover{text-decoration:underline}
+    .hidden{display:none}
   </style>
 </head>
 <body>
-  <div class="login-card">
-    <h2>Hospital Login</h2>
-    <form id="loginForm">
+  <div class="auth-card">
+    <h2>Hospital Management</h2>
+
+    <!-- TABS -->
+    <div class="tabs">
+      <button class="tab active" onclick="showTab('login')">Login</button>
+      <button class="tab" onclick="showTab('reg')">Register</button>
+    </div>
+
+    <!-- LOGIN FORM -->
+    <form id="loginForm" class="tab-content">
       <div class="form-group">
-        <label for="userId">User ID</label>
-        <input id="userId" type="text" placeholder="e.g. 1" required />
+        <label>User ID</label>
+        <input id="logId" type="text" placeholder="e.g. 1" required />
       </div>
       <div class="form-group">
-        <label for="password">Password</label>
-        <input id="password" type="password" placeholder="patient123 / doctor123" required />
+        <label>Password</label>
+        <input id="logPw" type="password" placeholder="patient123 / doctor123" required />
       </div>
       <button type="submit" class="btn">Login</button>
     </form>
+
+    <!-- REGISTER FORM -->
+    <form id="regForm" class="tab-content hidden">
+      <div class="form-group">
+        <label>Role</label>
+        <select id="regRole" required>
+          <option value="">Choose role</option>
+          <option value="patient">Patient</option>
+          <option value="doctor">Doctor</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Full Name</label>
+        <input id="regName" type="text" placeholder="John Doe" required />
+      </div>
+      <div class="form-group">
+        <label>Phone</label>
+        <input id="regPhone" type="tel" placeholder="1234567890" required />
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input id="regEmail" type="email" placeholder="john@mail.com" required />
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input id="regPw" type="password" placeholder="min 6 chars" required />
+      </div>
+      <button type="submit" class="btn">Register</button>
+    </form>
+
     <div class="link">
       <a href="index.html">← Back to Home</a>
     </div>
   </div>
 
   <script>
-    document.getElementById('loginForm').addEventListener('submit', function (e) {
-      e.preventDefault();
-      const id   = document.getElementById('userId').value.trim();
-      const pw   = document.getElementById('password').value.trim();
+    /* ---------- TAB SWITCH ---------- */
+    function showTab(tab) {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(f => f.classList.add('hidden'));
+      if (tab === 'login') {
+        document.querySelector('.tab').classList.add('active');
+        document.getElementById('loginForm').classList.remove('hidden');
+      } else {
+        document.querySelectorAll('.tab')[1].classList.add('active');
+        document.getElementById('regForm').classList.remove('hidden');
+      }
+    }
 
-      // Demo credentials – replace with real API later
+    /* ---------- LOGIN (mirrors C demo accounts) ---------- */
+    document.getElementById('loginForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const id = document.getElementById('logId').value.trim();
+      const pw = document.getElementById('logPw').value.trim();
+
+      // Same hard-coded accounts you used in C
       if (id === '1' && pw === 'patient123') {
         window.location.href = 'patient_dashboard.html';
       } else if (id === '2' && pw === 'doctor123') {
@@ -52,6 +108,30 @@
       } else {
         alert('Invalid credentials');
       }
+    });
+
+    /* ---------- REGISTER (fake for now) ---------- */
+    document.getElementById('regForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const role  = document.getElementById('regRole').value;
+      const name  = document.getElementById('regName').value.trim();
+      const phone = document.getElementById('regPhone').value.trim();
+      const email = document.getElementById('regEmail').value.trim();
+      const pw    = document.getElementById('regPw').value.trim();
+
+      if (!role || !name || !phone || !email || !pw) {
+        alert('Please fill all fields');
+        return;
+      }
+      if (pw.length < 6) {
+        alert('Password must be ≥ 6 characters');
+        return;
+      }
+
+      // Demo: pretend success and auto-log in as the new user
+      alert(`${role} registered successfully!\n(Auto-login as demo user)`);
+      // For now just redirect to the matching dashboard
+      window.location.href = role === 'patient' ? 'patient_dashboard.html' : 'doctor_dashboard.html';
     });
   </script>
 </body>
