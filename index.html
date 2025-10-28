@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Hospital Management</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* extra landing styles */
+    body          { display:flex; min-height:100vh; align-items:center; justify-content:center; background:#f5f7fa; font-family:Arial,Helvetica,sans-serif; }
+    .landing-card { background:#fff; padding:3rem 4rem; border-radius:12px; box-shadow:0 8px 24px rgba(0,0,0,.08); text-align:center; }
+    .landing-card h1 { margin-bottom:2rem; color:#2c3e50; }
+    .buttons      { display:flex; gap:1.5rem; justify-content:center; }
+    .btn          { padding:1rem 2rem; border:none; border-radius:6px; font-size:1.1rem; color:#fff; text-decoration:none; transition:.25s; }
+    .btn-patient  { background:#3498db; }
+    .btn-doctor   { background:#27ae60; }
+    .btn:hover    { filter:brightness(1.1); }
+  </style>
+</head>
+<body>
+  <div class="landing-card">
+    <h1>Hospital Management System</h1>
+    <div class="buttons">
+      <a class="btn btn-patient" href="patient_dashboard.html">Patient Portal</a>
+      <a class="btn btn-doctor"  href="doctor_dashboard.html">Doctor Portal</a>
+    </div>
+  </div>
+</body>
+</html>
