@@ -6,17 +6,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="styles.css" />
   <style>
-    body{ display:flex; min-height:100vh; align-items:center; justify-content:center; background:#f5f7fa; font-family:Arial,Helvetica,sans-serif; }
-    .login-card{ background:#fff; padding:2.5rem 3rem; border-radius:12px; box-shadow:0 8px 24px rgba(0,0,0,.08); width:100%; max-width:380px; }
-    .login-card h2{ margin-bottom:1.5rem; color:#2c3e50; text-align:center; }
-    .form-group{ margin-bottom:1rem; }
-    label{ display:block; margin-bottom:.25rem; font-weight:bold; color:#555; }
-    input{ width:100%; padding:.75rem; border:1px solid #ddd; border-radius:4px; font-size:1rem; }
-    .btn{ width:100%; padding:.75rem; border:none; border-radius:4px; font-size:1.1rem; color:#fff; background:#3498db; cursor:pointer; transition:.25s; }
-    .btn:hover{ background:#2980b9; }
-    .link{ text-align:center; margin-top:1rem; font-size:.9rem; }
-    .link a{ color:#3498db; text-decoration:none; }
-    .link a:hover{ text-decoration:underline; }
+    body{display:flex;min-height:100vh;align-items:center;justify-content:center;background:#f5f7fa;font-family:Arial,Helvetica,sans-serif}
+    .login-card{background:#fff;padding:2.5rem 3rem;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.08);width:100%;max-width:380px}
+    .login-card h2{margin-bottom:1.5rem;color:#2c3e50;text-align:center}
+    .form-group{margin-bottom:1rem}
+    label{display:block;margin-bottom:.25rem;font-weight:bold;color:#555}
+    input{width:100%;padding:.75rem;border:1px solid #ddd;border-radius:4px;font-size:1rem}
+    .btn{width:100%;padding:.75rem;border:none;border-radius:4px;font-size:1.1rem;color:#fff;background:#3498db;cursor:pointer;transition:.25s}
+    .btn:hover{background:#2980b9}
+    .link{text-align:center;margin-top:1rem;font-size:.9rem}
+    .link a{color:#3498db;text-decoration:none}
+    .link a:hover{text-decoration:underline}
   </style>
 </head>
 <body>
@@ -41,14 +41,14 @@
   <script>
     document.getElementById('loginForm').addEventListener('submit', function (e) {
       e.preventDefault();
-      const id = document.getElementById('userId').value.trim();
-      const pw = document.getElementById('password').value.trim();
+      const id   = document.getElementById('userId').value.trim();
+      const pw   = document.getElementById('password').value.trim();
 
-      // dummy check – replace with real API later
-      if ((id === '1' && pw === 'patient123') || (id === '2' && pw === 'doctor123')) {
-        alert('Login successful');
-        // redirect to respective dashboard
-        window.location.href = id === '1' ? 'patient_dashboard.html' : 'doctor_dashboard.html';
+      // Demo credentials – replace with real API later
+      if (id === '1' && pw === 'patient123') {
+        window.location.href = 'patient_dashboard.html';
+      } else if (id === '2' && pw === 'doctor123') {
+        window.location.href = 'doctor_dashboard.html';
       } else {
         alert('Invalid credentials');
       }
